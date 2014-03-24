@@ -1,6 +1,6 @@
 <?php
 $num="";
-$file=fopen("missing".$num.".txt","r");
+$file=fopen("wrong".$num.".txt","r");
 while(!feof($file))
 {	
 	$line=fgets($file);
