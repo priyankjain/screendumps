@@ -1,21 +1,14 @@
 <?php
-$file=fopen("sites".".txt","r");
-$fout=fopen("sitesmissed.txt","w");
-$line_no=0;
+$num="";
+$file=fopen("wrong".$num.".txt","r");
 while(!feof($file))
 {	
-	$line_no++;
 	$line=fgets($file);
 	$names=explode("/",$line);
 	$dots=$names[1];
 	$dot=explode(".",$dots);
 	$name=$dot[0];
-
-	if(!file_exists("/opt/lampp/htdocs/screendumps/resizedjpg/".$name.".jpg"))
-	{
-		fputs($fout,$line);
-	}
-	// $curl_handle=curl_init();
+	$curl_handle=curl_init();
 	// curl_setopt($curl_handle, CURLOPT_URL,'http://'.$line);
 	// curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 30);
 	// curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
@@ -27,17 +20,17 @@ while(!feof($file))
 	// $out=array();
 	// exec($cmd,$out);
 	// var_dump($out);
-	// $cmd="xvfb-run -a /usr/bin/convert /opt/lampp/htdocs/screendumps/pdf/".$name.".pdf /opt/lampp/htdocs/screendumps/jpg/".$name.".jpg";
-	// $out=array();
-	// exec($cmd,$out);
-	// var_dump($out);
-	// if(file_exists("/opt/lampp/htdocs/screendumps/jpg/".$name.".jpg")) $nameold=$name;
-	// else $nameold=$name."-0";
-	// $cmd="xvfb-run -a /usr/bin/convert -resize 200x200! /opt/lampp/htdocs/screendumps/jpg/".$nameold.".jpg /opt/lampp/htdocs/screendumps/resizedjpg/".$name.".jpg";
-	// $out=array();
-	// exec($cmd,$out);
-	// var_dump($out);
+	if(!file_exists("/opt/lampp/htdocs/screendumps/pdf/".$name.".pdf")) continue;
+	$cmd="xvfb-run -a /usr/bin/convert /opt/lampp/htdocs/screendumps/pdf/".$name.".pdf /opt/lampp/htdocs/screendumps/jpg/".$name.".jpg";
+	$out=array();
+	exec($cmd,$out);
+	var_dump($out);
+	if(file_exists("/opt/lampp/htdocs/screendumps/jpg/".$name.".jpg")) $nameold=$name;
+	else $nameold=$name."-0";
+	$cmd="xvfb-run -a /usr/bin/convert -resize 200x200! /opt/lampp/htdocs/screendumps/jpg/".$nameold.".jpg /opt/lampp/htdocs/screendumps/resizedjpg/".$name.".jpg";
+	$out=array();
+	exec($cmd,$out);
+	var_dump($out);
 }
 fclose($file);
-fclose($fout);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$num=1;
-$file=fopen("sites".$num.".txt","r");
+$num="";
+$file=fopen("missing".$num.".txt","r");
 while(!feof($file))
 {	
 	$line=fgets($file);
@@ -15,7 +15,7 @@ while(!feof($file))
 	curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5');
 	$query = curl_exec($curl_handle);
 	curl_close($curl_handle);
-	file_put_contents("index".$num.".html",$query);
+	file_put_contents("index1".$num.".html",$query);
 	$cmd="xvfb-run -a /usr/bin/wkhtmltopdf /opt/lampp/htdocs/screendumps/index".$num.".html /opt/lampp/htdocs/screendumps/pdf/".$name.".pdf";
 	$out=array();
 	exec($cmd,$out);
